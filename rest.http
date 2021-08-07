@@ -1,0 +1,9 @@
+POST http://localhost:3333/publish-test
+content-type: application/json
+
+{
+    "host": "server 1",
+    "message": "Hello Server 1"
+}
+
+###
