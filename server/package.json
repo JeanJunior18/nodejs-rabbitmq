@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node ./build/index.js",
-    "dev": "nodemon"
+    "start": "tsc && node build/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "devDependencies": {
     "@types/amqplib": "^0.8.1",

@@ -2,18 +2,18 @@
 version: "3"
 
 services:
-  nodejs:
-    build: .
+  nodejs-server:
+    build: server
     command: npm run dev
-    container_name: nodejs-rabbitmq
+    container_name: nodejs-rabbitmq-server
     ports:
       - "3333:3333"
     volumes:
-      - .:/opt/nodejs-rabbitmq
+      - ./server:/opt/nodejs-rabbitmq
 
   rabbitmq:
     image: "rabbitmq:3.8-management-alpine"
-    container_name: nodejs-rabbitmq-rabbitmq
+    container_name: rabbitmq
     hostname: rabbitmq
     ports:
       - "15672:15672"
