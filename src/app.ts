@@ -9,6 +9,7 @@ class App {
     this.app = express();
     this.middlewares();
     this.router();
+    console.log('Here we go');
   }
 
   middlewares() {
