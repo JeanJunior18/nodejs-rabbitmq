@@ -20,10 +20,10 @@ class App {
 
   async processor() {
     const client = new RabbibtmqClient('amqp://admin:admin@rabbitmq:5672');
-    // await client.connect();
-    // client.getQueueMessages(message => {
-    //   console.log('New message:', message?.content);
-    // });
+    await client.connect();
+    client.getQueueMessages((message) => {
+      console.log('New message:', message?.content.toString());
+    });
   }
 
   router() {

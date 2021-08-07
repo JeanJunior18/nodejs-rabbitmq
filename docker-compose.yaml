@@ -2,15 +2,6 @@
 version: "3"
 
 services:
-  nodejs-server:
-    build: server
-    command: npm run dev
-    container_name: nodejs-rabbitmq-server
-    ports:
-      - "3333:3333"
-    volumes:
-      - ./server:/opt/nodejs-rabbitmq
-
   rabbitmq:
     image: "rabbitmq:3.8-management-alpine"
     container_name: rabbitmq
@@ -23,3 +14,23 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
+
+  nodejs-server:
+    build: server
+    command: npm run dev
+    container_name: nodejs-rabbitmq-server
+    ports:
+      - "3333:3333"
+    volumes:
+      - ./server:/opt/nodejs-rabbitmq
+
+  nodejs-client0:
+    build: client
+    command: npm run dev
+    container_name: nodejs-rabbitmq-client0
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/opt/nodejs-rabbitmq
+    environment:
+      - PORT=3000
