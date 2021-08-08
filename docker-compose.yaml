@@ -34,3 +34,34 @@ services:
       - ./client:/opt/nodejs-rabbitmq
     environment:
       - PORT=3000
+      - HOSTNAME=client0
+    depends_on: 
+      - rabbitmq
+
+  nodejs-client1:
+    build: client
+    command: npm run dev
+    container_name: nodejs-rabbitmq-client1
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./client:/opt/nodejs-rabbitmq
+    environment:
+      - PORT=3001
+      - HOSTNAME=client1
+    depends_on: 
+      - rabbitmq
+
+  nodejs-client2:
+    build: client
+    command: npm run dev
+    container_name: nodejs-rabbitmq-client2
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./client:/opt/nodejs-rabbitmq
+    environment:
+      - PORT=3002
+      - HOSTNAME=client2
+    depends_on: 
+      - rabbitmq

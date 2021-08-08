@@ -27,6 +27,25 @@ export default class RabbibtmqServer {
     });
   }
 
+  async onlyPublishInExchange(
+    exchange: string,
+    routingKey: string,
+    message: string,
+  ): Promise<void> {
+    connect(this.uri).then((conn) => {
+      conn
+        .createChannel()
+        .then(async (channel) => {
+          console.log('Sending to exchange', exchange, message);
+          await channel.assertExchange(exchange, 'direct');
+          channel.publish(exchange, routingKey, Buffer.from(message));
+          return channel.close();
+        })
+        .catch((err) => err)
+        .finally(() => conn.close());
+    });
+  }
+
   async publishInQueue(queue: string, message: string): Promise<boolean> {
     if (!this.channel) throw new Error('Has not Channel');
     console.log('Sending to queue', queue, message);

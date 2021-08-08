@@ -1,11 +1,4 @@
-import {
-  Connection,
-  Channel,
-  connect,
-  Message,
-  Replies,
-  ConsumeMessage,
-} from 'amqplib';
+import { Connection, Channel, connect, Message } from 'amqplib';
 
 export default class RabbibtmqServer {
   private conn: Connection | null = null;
@@ -19,26 +12,14 @@ export default class RabbibtmqServer {
     this.channel = await this.conn.createChannel();
   }
 
-  getQueueMessages(callback: (message: Message | null) => void): any {
+  getQueueMessages(
+    queue: string,
+    callback: (message: Message | null) => void,
+  ): any {
     if (!this.channel) throw new Error('Has not Channel');
-    return this.channel.consume('teste', (message) => {
+    return this.channel.consume(queue, (message) => {
       callback(message);
       message && this.channel?.ack(message);
-    });
-  }
-
-  async onlyPublishInQueue(queue: string, message: string): Promise<void> {
-    connect(this.uri).then((conn) => {
-      conn
-        .createChannel()
-        .then(async (channel) => {
-          console.log('Sending to queue', queue, message);
-          await channel.assertQueue(queue);
-          channel.sendToQueue(queue, Buffer.from(message));
-          return channel.close();
-        })
-        .catch((err) => err)
-        .finally(() => conn.close());
     });
   }
 

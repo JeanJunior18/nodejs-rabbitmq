@@ -2,8 +2,31 @@ POST http://localhost:3333/publish-test
 content-type: application/json
 
 {
-    "host": "server 1",
-    "message": "Hello Server 1"
+    "exchange": "sentMessages",
+    "routingKey": "client0",
+    "message": "Hello Client 0"
+}
+
+###
+
+POST http://localhost:3333/publish-test
+content-type: application/json
+
+{
+    "exchange": "sentMessages",
+    "routingKey": "client1",
+    "message": "Hello Client 1"
+}
+
+###
+
+POST http://localhost:3333/publish-test
+content-type: application/json
+
+{
+    "exchange": "sentMessages",
+    "routingKey": "client2",
+    "message": "Hello Client 2  "
 }
 
 ###

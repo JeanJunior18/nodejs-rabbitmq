@@ -19,9 +19,11 @@ class App {
   }
 
   async processor() {
+    const hostName = process.env.HOSTNAME;
+    if (!hostName) throw new Error('Has not host name');
     const client = new RabbibtmqClient('amqp://admin:admin@rabbitmq:5672');
     await client.connect();
-    client.getQueueMessages((message) => {
+    client.getQueueMessages(hostName, (message) => {
       console.log('New message:', message?.content.toString());
     });
   }
