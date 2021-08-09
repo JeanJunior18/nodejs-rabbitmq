@@ -1,4 +1,4 @@
-import { Connection, Channel, connect, Message } from 'amqplib';
+import { Connection, Channel, connect, Message, Replies } from 'amqplib';
 
 export default class RabbibtmqServer {
   private conn: Connection | null = null;
@@ -12,15 +12,20 @@ export default class RabbibtmqServer {
     this.channel = await this.conn.createChannel();
   }
 
-  getQueueMessages(
+  async getQueueMessages(
     queue: string,
     callback: (message: Message | null) => void,
-  ): any {
+  ): Promise<Replies.Consume | null> {
     if (!this.channel) throw new Error('Has not Channel');
-    return this.channel.consume(queue, (message) => {
-      callback(message);
-      message && this.channel?.ack(message);
-    });
+
+    try {
+      return await this.channel.consume(queue, (message) => {
+        callback(message);
+        message && this.channel?.ack(message);
+      });
+    } catch (e) {
+      return null;
+    }
   }
 
   closeChannel(): void {

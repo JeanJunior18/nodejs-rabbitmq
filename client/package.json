@@ -5,14 +5,15 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "tsc && node buid/index.js",
-    "serve": "pm2-runtime buid/index.js",
+    "start": "tsc && node build/index.js",
+    "serve": "pm2-runtime build/index.js",
     "dev": "nodemon src/index.ts"
   },
   "dependencies": {
     "amqplib": "^0.8.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "pm2": "^5.1.0",
     "typescript": "^4.3.5"
   },
   "devDependencies": {

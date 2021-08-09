@@ -19,7 +19,7 @@ services:
 
   nodejs-server:
     build: server
-    command: npm run dev
+    command: npm run serve
     container_name: nodejs-rabbitmq-server
     ports:
       - "3333:3333"
@@ -32,7 +32,7 @@ services:
 
   nodejs-client0:
     build: client
-    command: npm run dev
+    command: npm run serve
     container_name: nodejs-rabbitmq-client0
     ports:
       - "3000:3000"
@@ -50,7 +50,7 @@ services:
 
   nodejs-client1:
     build: client
-    command: npm run dev
+    command: npm run serve
     container_name: nodejs-rabbitmq-client1
     ports:
       - "3001:3001"
@@ -67,7 +67,7 @@ services:
 
   nodejs-client2:
     build: client
-    command: npm run dev
+    command: npm run serve
     container_name: nodejs-rabbitmq-client2
     ports:
       - "3002:3002"

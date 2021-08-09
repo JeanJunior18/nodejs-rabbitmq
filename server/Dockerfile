@@ -15,4 +15,4 @@ COPY ./build .
 
 EXPOSE 3333
 
-CMD ["npm", "serve"]
+CMD ["npm", "run", "serve"]
